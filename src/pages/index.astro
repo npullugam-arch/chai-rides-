@@ -14,7 +14,10 @@ import { loadSite } from '../lib/content';
 import { loadFooterContent } from '../lib/supabase';
 
 const [site, footer] = await Promise.all([loadSite(), loadFooterContent()]);
-export const prerender = false;
+// Keep the file-backed homepage prerendered for Vercel. The Keystatic reader is
+// build-time content; rendering it inside a serverless function can fail when
+// the source content directory is not present in the function bundle.
+export const prerender = true;
 const { settings: s, page } = site;
 const links = [
   { href: '#beans', label: 'Chai' },
