@@ -5,8 +5,8 @@ import { t as renderScript } from "./script_istBs7Sh.mjs";
 import { t as $$SimpleBase } from "./SimpleBase_rYo16bzO.mjs";
 import { t as $$Logo } from "./Logo_Ccjrvq56.mjs";
 import { t as $$AdminRecordCards } from "./admin-responsive_CGF3jZSI.mjs";
-import { a as isAdmin, i as fallbackAuthConfigured } from "./auth_DT6eLQJW.mjs";
-import { i as databaseConfigured, o as listAdminRecords, t as authConfigured } from "./supabase_BKWTd6yk.mjs";
+import { a as isAdmin, i as fallbackAuthConfigured } from "./auth_D1v-w6fz.mjs";
+import { i as databaseConfigured, o as listAdminRecords, t as authConfigured } from "./supabase_CQzM9MX_.mjs";
 // src/components/AdminPageTitle.astro
 createAstro("http://localhost:4321");
 var $$AdminPageTitle = createComponent(($$result, $$props, $$slots) => {

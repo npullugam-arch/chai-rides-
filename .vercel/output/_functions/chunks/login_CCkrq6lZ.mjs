@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
-import { i as fallbackAuthConfigured, n as createFallbackSession, o as sessionCookie, r as credentialsValid } from "./auth_DT6eLQJW.mjs";
-import { d as signIn, t as authConfigured } from "./supabase_BKWTd6yk.mjs";
+import { i as fallbackAuthConfigured, n as createFallbackSession, o as sessionCookie, r as credentialsValid } from "./auth_D1v-w6fz.mjs";
+import { d as signIn, t as authConfigured } from "./supabase_CQzM9MX_.mjs";
 // src/pages/api/admin/login.ts
 var login_exports = /* @__PURE__ */ __exportAll({ POST: () => POST });
 var POST = async ({ request }) => {

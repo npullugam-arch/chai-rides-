@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
-import { a as isAdmin } from "./auth_DT6eLQJW.mjs";
+import { a as isAdmin } from "./auth_D1v-w6fz.mjs";
 import { n as removeImage, t as cloudinaryConfigured } from "./cloudinary_lNV0zyrJ.mjs";
-import { a as deleteAdminRecord, f as storage, i as databaseConfigured, m as updateAdminRecord, n as createAdminRecord, o as listAdminRecords, p as supabaseConfigured } from "./supabase_BKWTd6yk.mjs";
+import { a as deleteAdminRecord, f as storage, i as databaseConfigured, m as updateAdminRecord, n as createAdminRecord, o as listAdminRecords, p as supabaseConfigured } from "./supabase_CQzM9MX_.mjs";
 // src/pages/api/admin/[resource].ts
 var _resource__exports = /* @__PURE__ */ __exportAll({
 	DELETE: () => DELETE,

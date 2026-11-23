@@ -3,7 +3,7 @@ import { d as renderTemplate, f as maybeRenderHead, i as renderComponent } from 
 import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs";
 import { t as $$SimpleBase } from "./SimpleBase_rYo16bzO.mjs";
 import { n as $$Header, t as $$Footer } from "./Footer_BA2BlTYx.mjs";
-import { s as loadFooterContent } from "./supabase_BKWTd6yk.mjs";
+import { s as loadFooterContent } from "./supabase_CQzM9MX_.mjs";
 // src/pages/legal/[slug].astro
 var _slug__exports = /* @__PURE__ */ __exportAll({
 	default: () => $$Slug,

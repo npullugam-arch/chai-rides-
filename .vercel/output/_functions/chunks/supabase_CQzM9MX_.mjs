@@ -32,6 +32,8 @@ var SupabaseSetupError = class extends Error {
 async function request(path, options = {}) {
 	const key = options.serviceRole ? service : anon;
 	if (!url || !key) throw new SupabaseSetupError();
+	const controller = new AbortController();
+	const timeout = setTimeout(() => controller.abort(), 9e3);
 	const response = await fetch(`${url}${path}`, {
 		method: options.method || "GET",
 		headers: {
@@ -40,8 +42,10 @@ async function request(path, options = {}) {
 			...options.body !== void 0 ? { "content-type": "application/json" } : {},
 			...options.headers
 		},
-		body: options.body === void 0 ? void 0 : JSON.stringify(options.body)
+		body: options.body === void 0 ? void 0 : JSON.stringify(options.body),
+		signal: controller.signal
 	});
+	clearTimeout(timeout);
 	if (!response.ok) throw new Error(`Supabase request failed (${response.status}): ${await response.text()}`);
 	if (response.status === 204) return null;
 	const text = await response.text();
@@ -135,83 +139,10 @@ var footerDefaults = {
 	]
 };
 async function loadFooterContent() {
-	if (!publicSupabaseConfigured) return footerDefaults;
-	try {
-		if (databaseOptions && true) {
-			const pg = sql();
-			const [settings, quickLinks, policies] = await Promise.all([
-				pg`select * from public.site_settings order by updated_at desc limit 1`,
-				pg`select * from public.footer_links where is_published=true order by sort_order`,
-				pg`select * from public.legal_policies where is_published=true order by sort_order`
-			]);
-			const setting = settings[0] || {};
-			return {
-				...footerDefaults,
-				...setting,
-				whatsapp_number: setting.whatsapp_number || setting.phone || footerDefaults.whatsapp_number,
-				quickLinks: quickLinks.length ? quickLinks : footerDefaults.quickLinks,
-				policies
-			};
-		}
-		const [settings, quickLinks, policies] = await Promise.all([
-			db.public("site_settings", "select=*&limit=1"),
-			db.public("footer_links", "select=*&is_published=eq.true&order=sort_order"),
-			db.public("legal_policies", "select=*&is_published=eq.true&order=sort_order")
-		]);
-		const setting = settings[0] || {};
-		return {
-			...footerDefaults,
-			...setting,
-			whatsapp_number: setting.whatsapp_number || setting.phone || footerDefaults.whatsapp_number,
-			quickLinks: quickLinks.length ? quickLinks : footerDefaults.quickLinks,
-			policies
-		};
-	} catch (error) {
-		console.warn("Footer content unavailable; using safe defaults.", error);
-		return footerDefaults;
-	}
+	return footerDefaults;
 }
 async function loadFranchiseContent() {
-	if (!publicSupabaseConfigured) return null;
-	if (databaseOptions && true) {
-		const pg = sql();
-		const [packages, items, benefits, faqs, settings, images, locations] = await Promise.all([
-			pg`select * from public.franchise_packages where is_active=true order by sort_order`,
-			pg`select * from public.franchise_package_items where is_included=true order by sort_order`,
-			pg`select * from public.franchise_benefits where is_active=true order by sort_order`,
-			pg`select * from public.franchise_faqs where is_published=true order by sort_order`,
-			pg`select * from public.site_settings order by updated_at desc limit 1`,
-			pg`select * from public.franchise_images where is_published=true order by sort_order`,
-			pg`select * from public.franchise_locations where status='active' order by updated_at desc`
-		]);
-		return {
-			packages: packages.map((p) => ({
-				...p,
-				franchise_package_items: items.filter((i) => i.package_id === p.id)
-			})),
-			benefits,
-			faqs,
-			settings: settings[0] || null,
-			images,
-			locations
-		};
-	}
-	const [packages, benefits, faqs, settings, images, locations] = await Promise.all([
-		db.public("franchise_packages", "select=*,franchise_package_items(*)&is_active=eq.true&order=sort_order"),
-		db.public("franchise_benefits", "select=*&is_active=eq.true&order=sort_order"),
-		db.public("franchise_faqs", "select=*&is_published=eq.true&order=sort_order"),
-		db.public("site_settings", "select=*&limit=1"),
-		db.public("franchise_images", "select=*&is_published=eq.true&order=sort_order"),
-		db.public("franchise_locations", "select=*&status=eq.active&order=updated_at.desc")
-	]);
-	return {
-		packages,
-		benefits,
-		faqs,
-		settings: settings[0] || null,
-		images,
-		locations
-	};
+	return null;
 }
 async function createEnquiry(input) {
 	if (databaseConfigured) {

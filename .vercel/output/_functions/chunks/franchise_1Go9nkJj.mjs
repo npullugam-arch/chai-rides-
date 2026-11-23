@@ -4,7 +4,7 @@ import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs"
 import { t as renderScript } from "./script_istBs7Sh.mjs";
 import { t as $$SimpleBase } from "./SimpleBase_rYo16bzO.mjs";
 import { n as $$Header, t as $$Footer } from "./Footer_BA2BlTYx.mjs";
-import { c as loadFranchiseContent, l as publicSupabaseConfigured, s as loadFooterContent } from "./supabase_BKWTd6yk.mjs";
+import { c as loadFranchiseContent, l as publicSupabaseConfigured, s as loadFooterContent } from "./supabase_CQzM9MX_.mjs";
 // src/components/FranchiseIcon.astro
 createAstro("http://localhost:4321");
 var $$FranchiseIcon = createComponent(($$result, $$props, $$slots) => {

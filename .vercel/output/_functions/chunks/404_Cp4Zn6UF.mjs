@@ -3,7 +3,7 @@ import { C as unescapeHTML, c as renderSlot, d as renderTemplate, f as maybeRend
 import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs";
 import { a as themeCss, i as fontsUrl, n as THEMES, r as THEME_OPTIONS } from "./Logo_Ccjrvq56.mjs";
 import { n as $$Header, t as $$Footer } from "./Footer_BA2BlTYx.mjs";
-import { s as loadFooterContent } from "./supabase_BKWTd6yk.mjs";
+import { s as loadFooterContent } from "./supabase_CQzM9MX_.mjs";
 import { createReader } from "@keystatic/core/reader";
 import { collection, config, fields, singleton } from "@keystatic/core";
 // src/layouts/Base.astro

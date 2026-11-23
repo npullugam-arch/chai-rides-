@@ -1,4 +1,4 @@
-import { h as verifyUser, t as authConfigured } from "./supabase_BKWTd6yk.mjs";
+import { h as verifyUser, t as authConfigured } from "./supabase_CQzM9MX_.mjs";
 // src/lib/auth.ts
 var COOKIE = "chai_admin_session";
 var enc = new TextEncoder();

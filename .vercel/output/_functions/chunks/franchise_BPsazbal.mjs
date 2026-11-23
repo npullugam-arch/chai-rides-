@@ -1,5 +1,5 @@
 import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
-import { i as databaseConfigured, p as supabaseConfigured, r as createEnquiry, u as recentEnquiryCount } from "./supabase_BKWTd6yk.mjs";
+import { i as databaseConfigured, p as supabaseConfigured, r as createEnquiry, u as recentEnquiryCount } from "./supabase_CQzM9MX_.mjs";
 // src/pages/api/franchise.ts
 var franchise_exports = /* @__PURE__ */ __exportAll({ POST: () => POST });
 var clean = (f, key, max) => String(f.get(key) || "").trim().slice(0, max);

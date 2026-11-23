@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
-import { a as isAdmin } from "./auth_DT6eLQJW.mjs";
+import { a as isAdmin } from "./auth_D1v-w6fz.mjs";
 import { n as removeImage, r as uploadImage, t as cloudinaryConfigured } from "./cloudinary_lNV0zyrJ.mjs";
-import { i as databaseConfigured, n as createAdminRecord } from "./supabase_BKWTd6yk.mjs";
+import { i as databaseConfigured, n as createAdminRecord } from "./supabase_CQzM9MX_.mjs";
 // src/pages/api/admin/upload.ts
 var upload_exports = /* @__PURE__ */ __exportAll({ POST: () => POST });
 var POST = async ({ request }) => {
