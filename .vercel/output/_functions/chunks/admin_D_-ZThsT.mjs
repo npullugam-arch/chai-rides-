@@ -2,7 +2,7 @@ import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
 import { a as Fragment, d as renderTemplate, f as maybeRenderHead, i as renderComponent, m as addAttribute } from "./server_Djfphud0.mjs";
 import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs";
 import { t as renderScript } from "./script_istBs7Sh.mjs";
-import { t as $$SimpleBase } from "./SimpleBase_B7o5Q2WB.mjs";
+import { t as $$SimpleBase } from "./SimpleBase_rYo16bzO.mjs";
 import { t as $$Logo } from "./Logo_Ccjrvq56.mjs";
 import { t as $$AdminRecordCards } from "./admin-responsive_CGF3jZSI.mjs";
 import { a as isAdmin, i as fallbackAuthConfigured } from "./auth_DT6eLQJW.mjs";
