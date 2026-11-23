@@ -112,7 +112,8 @@ export async function recentEnquiryCount(sourceIpHash:string){
 
 export async function listAdminRecords(table:string){
   if(databaseConfigured){const pg=sql();return table==='site_settings'?pg`select * from ${pg(table)} order by updated_at desc`:pg`select * from ${pg(table)} order by created_at desc`;}
-  return db.admin(table,'select=*&order=created_at.desc');
+  // site_settings has no created_at column; use updated_at for REST as well.
+  return db.admin(table, table==='site_settings' ? 'select=*&order=updated_at.desc' : 'select=*&order=created_at.desc');
 }
 export async function createAdminRecord(table:string,input:Record<string,unknown>){
   if(databaseConfigured){const pg=sql();return pg`insert into ${pg(table)} ${pg(input)} returning *`;}
