@@ -1,6 +1,6 @@
 import { C as unescapeHTML, c as renderSlot, d as renderTemplate, m as addAttribute, p as renderHead } from "./server_Djfphud0.mjs";
 import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs";
-import { a as themeCss, i as fontsUrl, n as THEMES } from "./Logo_3H2878gK.mjs";
+import { a as themeCss, i as fontsUrl, n as THEMES } from "./Logo_Ccjrvq56.mjs";
 // src/layouts/SimpleBase.astro
 createAstro("http://localhost:4321");
 var $$SimpleBase = createComponent(($$result, $$props, $$slots) => {

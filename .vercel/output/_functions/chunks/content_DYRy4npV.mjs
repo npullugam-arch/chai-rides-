@@ -1,6 +1,6 @@
 import { C as unescapeHTML, c as renderSlot, d as renderTemplate, h as defineScriptVars, m as addAttribute, p as renderHead } from "./server_Djfphud0.mjs";
 import { n as createComponent, t as createAstro } from "./compiler_Cgr8Xbyu.mjs";
-import { a as themeCss, i as fontsUrl, n as THEMES, r as THEME_OPTIONS } from "./Logo_3H2878gK.mjs";
+import { a as themeCss, i as fontsUrl, n as THEMES, r as THEME_OPTIONS } from "./Logo_Ccjrvq56.mjs";
 import { createReader } from "@keystatic/core/reader";
 import { collection, config, fields, singleton } from "@keystatic/core";
 // src/layouts/Base.astro

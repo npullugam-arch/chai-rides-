@@ -1,8 +1,8 @@
 import { t as __exportAll } from "./rolldown-runtime_D8jQpDG7.mjs";
 import { d as renderTemplate, f as maybeRenderHead, i as renderComponent } from "./server_Djfphud0.mjs";
 import { n as createComponent } from "./compiler_Cgr8Xbyu.mjs";
-import { n as $$Base, t as loadSite } from "./content_BLhOlhDb.mjs";
-import { n as $$Header, t as $$Footer } from "./Footer_DZtHF2NQ.mjs";
+import { n as $$Base, t as loadSite } from "./content_DYRy4npV.mjs";
+import { n as $$Header, t as $$Footer } from "./Footer_BA2BlTYx.mjs";
 import { s as loadFooterContent } from "./supabase_BKWTd6yk.mjs";
 // src/pages/404.astro
 var _404_exports = /* @__PURE__ */ __exportAll({
