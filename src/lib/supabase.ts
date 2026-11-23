@@ -1,9 +1,10 @@
 import postgres from 'postgres';
+import { publicSupabase } from '../config/public-supabase';
 // Public reads may use either the server-side names or the Vite/Astro public
 // aliases. The publishable key is safe to expose; service/database credentials
 // are never read from the public aliases.
-const url = (import.meta.env.SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL)?.replace(/\/$/, '');
-const anon = import.meta.env.SUPABASE_ANON_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const url = (import.meta.env.SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL || publicSupabase.url)?.replace(/\/$/, '');
+const anon = import.meta.env.SUPABASE_ANON_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY || publicSupabase.anonKey;
 const service = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 const databaseUrl = import.meta.env.DATABASE_URL;
 const databasePassword = import.meta.env.SUPABASE_DB_PASSWORD;
