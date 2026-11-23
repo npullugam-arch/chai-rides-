@@ -1,0 +1,17 @@
+<div class="welcome-loader" id="welcomeLoader" role="status" aria-live="polite" aria-label="Welcome to Chai Rides">
+  <img class="welcome-loader__gif" src="/chai-rides-welcome.gif" alt="" width="240" height="240" fetchpriority="high" decoding="async" />
+</div>
+
+<script is:inline>
+  const loader = document.querySelector('#welcomeLoader');
+  const root = document.documentElement;
+
+  if (!root.classList.contains('welcome-pending')) {
+    loader?.remove();
+  } else {
+    window.setTimeout(() => {
+      root.classList.remove('welcome-pending');
+      loader?.remove();
+    }, 2500);
+  }
+</script>

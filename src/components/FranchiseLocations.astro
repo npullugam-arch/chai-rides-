@@ -1,0 +1,22 @@
+---
+const { locations = [] } = Astro.props;
+---
+<section class="wrap section locations-section" id="locations">
+  <div class="section-heading">
+    <span class="kicker">Our growing network</span>
+    <h2>Active Chai Rides locations.</h2>
+    <p>Only locations published as active by the Chai Rides admin team appear here.</p>
+  </div>
+  {locations.length ? <div class="location-grid">
+    {locations.map((location:any) => <article class="location-card reveal">
+      {location.image_url
+        ? <img src={location.image_url} alt={`${location.franchise_name} in ${location.city}`} loading="lazy" />
+        : <div class="location-placeholder" aria-hidden="true"><img src="/chai-rides-logo.png" alt="" /></div>}
+      <div class="location-copy"><span>{location.city}</span><h3>{location.franchise_name}</h3><p>{location.address}</p></div>
+    </article>)}
+  </div> : <div class="locations-empty"><strong>New locations will be announced here.</strong><p>There are currently no published franchise locations.</p></div>}
+</section>
+<style>
+.locations-section{padding-top:clamp(4rem,8vw,7rem);padding-bottom:clamp(4rem,8vw,7rem);color:#173126;background:#fff7e8}.section-heading{max-width:780px;margin-bottom:2rem}.kicker{display:block;color:#ea702d;font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.section-heading h2{font-size:clamp(2.25rem,5vw,4.5rem);margin:.7rem 0;letter-spacing:-.035em}.section-heading p{font-size:1.05rem}.location-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}.location-card{overflow:hidden;border:1px solid #d9e1d8;border-radius:22px;background:white;box-shadow:0 20px 55px #17312612;transition:transform .3s,box-shadow .3s}.location-card:hover{transform:translateY(-5px);box-shadow:0 28px 65px #17312620}.location-card>img,.location-placeholder{width:100%;height:220px;object-fit:cover;background:linear-gradient(145deg,#e8f0e8,#fce8ce);display:grid;place-items:center}.location-placeholder img{width:96px;height:96px;object-fit:contain}.location-copy{padding:1.25rem}.location-copy span{color:#ea702d;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.location-copy h3{font-size:1.45rem;margin:.35rem 0}.location-copy p{color:#52655a}.locations-empty{padding:2rem;border:1px dashed #aebdae;border-radius:18px;background:#fff}.locations-empty p{margin-top:.25rem;color:#52655a}@media(max-width:900px){.location-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.location-grid{grid-template-columns:1fr}.location-card>img,.location-placeholder{height:190px}}@media(prefers-reduced-motion:reduce){.location-card{transition:none}}
+</style>
+

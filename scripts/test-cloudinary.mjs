@@ -1,0 +1,11 @@
+import { loadEnv } from 'vite';
+import { createHash } from 'node:crypto';
+const env=loadEnv('development',process.cwd(),'');
+const {CLOUDINARY_CLOUD_NAME:cloud,CLOUDINARY_API_KEY:key,CLOUDINARY_API_SECRET:secret}=env;
+if(!cloud||!key||!secret)throw new Error('Cloudinary credentials are missing.');
+const sign=params=>createHash('sha1').update(`${Object.entries(params).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>`${k}=${v}`).join('&')}${secret}`).digest('hex');
+const timestamp=Math.floor(Date.now()/1000),folder='chai-rides/connection-tests',upload=new FormData();
+upload.set('file','data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');upload.set('api_key',key);upload.set('timestamp',String(timestamp));upload.set('folder',folder);upload.set('signature',sign({folder,timestamp}));
+const response=await fetch(`https://api.cloudinary.com/v1_1/${cloud}/image/upload`,{method:'POST',body:upload});if(!response.ok)throw new Error(`Upload test failed (${response.status}): ${await response.text()}`);const image=await response.json();
+const destroyTimestamp=Math.floor(Date.now()/1000),destroy=new FormData();destroy.set('public_id',image.public_id);destroy.set('api_key',key);destroy.set('timestamp',String(destroyTimestamp));destroy.set('signature',sign({public_id:image.public_id,timestamp:destroyTimestamp}));
+const removed=await fetch(`https://api.cloudinary.com/v1_1/${cloud}/image/destroy`,{method:'POST',body:destroy});if(!removed.ok)throw new Error(`Cleanup failed (${removed.status}).`);console.log('Cloudinary upload and delete connection test succeeded.');

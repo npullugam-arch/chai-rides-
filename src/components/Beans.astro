@@ -28,7 +28,7 @@ const { eyebrow, title, text, origins, steps } = Astro.props;
               </ul>
             )}
             <div class="roast">
-              <span>Roast</span>
+              <span>Intensity</span>
               <span class="sr-only">{o.roast} of 5</span>
               {[1, 2, 3, 4, 5].map((i) => <i class={i <= o.roast ? 'on' : ''} aria-hidden="true"></i>)}
               {o.use && <span class="use">{o.use}</span>}

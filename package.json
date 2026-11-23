@@ -1,34 +1,39 @@
 {
-  "name": "ember-and-oak",
+  "name": "chai-rides",
   "type": "module",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "wrangler dev",
-    "deploy": "astro build && wrangler deploy",
+    "preview": "astro preview",
+    "db:test": "node scripts/test-database.mjs",
+    "cloudinary:test": "node scripts/test-cloudinary.mjs",
+    "db:setup": "node scripts/setup-database.mjs",
+    "db:complete": "node scripts/apply-completion-migration.mjs",
+    "db:part2": "node scripts/apply-part2-migration.mjs",
+    "db:part3": "node scripts/apply-part3-migration.mjs",
+    "test:admin-crud": "node scripts/test-admin-crud.mjs",
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.4.2",
     "@astrojs/react": "^7.1.0",
     "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vercel": "^11.0.22",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "astro": "^7.4.2",
+    "postgres": "^4.1.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "three": "^0.186.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/node": "^11.1.9",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
-    "typescript": "^5.9.3",
-    "wrangler": "^4.152.0"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=22.23.4"

@@ -23,20 +23,47 @@ if (swatches) {
   const input = $<HTMLInputElement>(`#swatches input[value="${current}"]`);
   if (input) input.checked = true;
   const label = $('#themeName');
+  const picker = document.querySelector<HTMLElement>('[data-theme-picker]');
+  const trigger = $<HTMLButtonElement>('#themeTrigger');
   if (label && THEMES[current]) label.textContent = THEMES[current].label;
 
-  // Don't move focus on mouse/touch: Chrome can scroll the page to a focused control in a sticky header.
-  swatches.addEventListener('pointerdown', (e) => { if ((e.target as Element).closest('.sw')) e.preventDefault(); });
+  const closeThemePicker = () => {
+    picker?.classList.remove('is-open');
+    trigger?.setAttribute('aria-expanded', 'false');
+  };
 
-  swatches.addEventListener('change', (e) => {
-    const key = (e.target as HTMLInputElement).value as ThemeKey;
+  const applyTheme = (key: ThemeKey) => {
     if (!THEMES[key]) return;
     loadThemeFonts(key);
     document.documentElement.dataset.skin = key;
+    const selected = $<HTMLInputElement>(`#swatches input[value="${key}"]`);
+    if (selected) selected.checked = true;
     if (label) label.textContent = THEMES[key].label;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEMES[key].c.paper);
     try { localStorage.setItem('cafe-theme', key); } catch {}
     document.dispatchEvent(new CustomEvent('cafe:theme', { detail: key }));
+  };
+
+  swatches.addEventListener('change', (e) => {
+    const key = (e.target as HTMLInputElement).value as ThemeKey;
+    applyTheme(key);
+    closeThemePicker();
+  });
+
+  trigger?.addEventListener('click', () => {
+    const isOpen = !picker?.classList.contains('is-open');
+    picker?.classList.toggle('is-open', isOpen);
+    trigger.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (picker && !picker.contains(e.target as Node)) closeThemePicker();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !picker?.classList.contains('is-open')) return;
+    closeThemePicker();
+    trigger?.focus();
   });
 }
 
@@ -56,8 +83,6 @@ function selectDrink(id: string) {
   set('#winRatio', d.recipe);
   set('#winBar', d.category);
   set('#winPrice', d.price);
-  const winAdd = $('#winAdd');
-  if (winAdd) winAdd.dataset.item = `drink:${id}`;
   document.dispatchEvent(new CustomEvent('cafe:drink', { detail: id }));
 }
 

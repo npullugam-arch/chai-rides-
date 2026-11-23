@@ -1,0 +1,9 @@
+<button class="admin-menu-toggle" type="button" aria-label="Open admin navigation" aria-expanded="false"><span aria-hidden="true">☰</span></button>
+<button class="admin-nav-close" type="button" aria-label="Close admin navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button>
+<button class="admin-nav-overlay" type="button" aria-label="Close admin navigation" tabindex="-1"></button>
+<script>
+const root=document.documentElement,openButton=document.querySelector<HTMLButtonElement>('.admin-menu-toggle'),closeButton=document.querySelector<HTMLButtonElement>('.admin-nav-close'),overlay=document.querySelector<HTMLButtonElement>('.admin-nav-overlay'),nav=document.querySelector<HTMLElement>('.cms-nav');
+const open=()=>{root.classList.add('admin-nav-open');openButton?.setAttribute('aria-expanded','true');requestAnimationFrame(()=>closeButton?.focus())};
+const close=()=>{root.classList.remove('admin-nav-open');openButton?.setAttribute('aria-expanded','false')};
+openButton?.addEventListener('click',open);closeButton?.addEventListener('click',close);overlay?.addEventListener('click',close);nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));addEventListener('keydown',event=>{if(event.key==='Escape'&&root.classList.contains('admin-nav-open')){close();openButton?.focus()}});addEventListener('resize',()=>{if(innerWidth>800)close()},{passive:true});
+</script>

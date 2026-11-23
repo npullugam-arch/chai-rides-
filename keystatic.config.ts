@@ -51,7 +51,7 @@ export default config({
   ...(cloudProject ? { cloud: { project: cloudProject } } : {}),
 
   ui: {
-    brand: { name: 'Ember & Oak' },
+    brand: { name: 'CHAI RIDES' },
     navigation: {
       'Café': ['settings', 'hours'],
       Menu: ['drinks', 'bakery', 'origins'],
@@ -89,35 +89,6 @@ export default config({
         mapsUrl: fields.url({
           label: 'Google Maps link (optional)',
           description: 'Paste the share link for your café on Google Maps. If empty, directions search for the address.',
-        }),
-        ordering: fields.object(
-          {
-            enabled: fields.checkbox({
-              label: 'Take pickup orders on the website',
-              description: 'Shows Add buttons and the cart. Untick to turn ordering off (e.g. when you are too busy).',
-              defaultValue: true,
-            }),
-            whatsapp: fields.text({
-              label: 'WhatsApp number that receives orders',
-              description: 'With country code, e.g. +91 98765 43210 or +1 555 014 2000. Orders open WhatsApp with this number.',
-              validation: { pattern: { regex: /^$|^\+?[\d\s()-]{8,20}$/, message: 'Use a phone number with country code, e.g. +91 98765 43210' } },
-            }),
-            leadMinutes: fields.integer({
-              label: 'Earliest pickup (minutes from now)',
-              description: 'How long you need to prepare an order.',
-              defaultValue: 15,
-              validation: { min: 5, max: 180 },
-            }),
-            note: fields.text({
-              label: 'Note shown in the cart',
-              defaultValue: 'Pay at the counter when you collect.',
-            }),
-          },
-          { label: 'Online ordering' },
-        ),
-        orderUrl: fields.url({
-          label: 'Delivery app link (optional)',
-          description: 'Swiggy, Zomato, Uber Eats… If set, the cart shows a small "Want delivery?" link to it.',
         }),
         instagram: fields.url({ label: 'Instagram link (optional)' }),
         currency: fields.select({
@@ -250,8 +221,8 @@ export default config({
         name: fields.slug({ name: { label: 'Drink name', validation: { isRequired: true } } }),
         category: fields.text({
           label: 'Menu tab',
-          defaultValue: 'Espresso bar',
-          description: 'Drinks with the same tab name are grouped together, e.g. Espresso bar, Slow bar, Cold.',
+          defaultValue: 'Hot Chai',
+          description: 'Drinks with the same tab name are grouped together, e.g. Hot Chai, Cold Chai.',
           validation: { isRequired: true },
         }),
         price: fields.number({ label: 'Price', step: 0.01, validation: { isRequired: true, min: 0 } }),
@@ -267,7 +238,7 @@ export default config({
               defaultValue: 'mug',
               options: [
                 { label: 'Mug', value: 'mug' },
-                { label: 'Small espresso cup', value: 'demi' },
+                { label: 'Small chai cup', value: 'demi' },
                 { label: 'Glass (cold drinks)', value: 'glass' },
               ],
             }),
@@ -293,7 +264,7 @@ export default config({
     }),
 
     bakery: collection({
-      label: 'Bakery',
+      label: 'Snacks',
       slugField: 'name',
       path: 'src/content/bakery/*',
       format: { data: 'json' },
@@ -301,7 +272,7 @@ export default config({
       schema: {
         name: fields.slug({ name: { label: 'Item name', validation: { isRequired: true } } }),
         category: fields.text({
-          label: 'Bakery tab',
+          label: 'Snack tab',
           defaultValue: 'Cookies',
           description: 'Items with the same tab name are grouped together, e.g. Cookies, Muffins.',
           validation: { isRequired: true },
@@ -352,18 +323,18 @@ export default config({
     }),
 
     origins: collection({
-      label: 'Coffees on bar',
+      label: 'Chai pantry',
       slugField: 'name',
       path: 'src/content/origins/*',
       format: { data: 'json' },
       columns: ['process', 'onBar'],
       schema: {
-        name: fields.slug({ name: { label: 'Coffee name', description: 'e.g. Ethiopia · Guji', validation: { isRequired: true } } }),
+        name: fields.slug({ name: { label: 'Ingredient name', description: 'e.g. Assam · Bold Tea', validation: { isRequired: true } } }),
         process: fields.text({ label: 'Process', description: 'Washed, Natural, Honey…' }),
         altitude: fields.text({ label: 'Altitude', description: 'e.g. 2,100 masl' }),
         notes: fields.array(fields.text({ label: 'Tasting note' }), { label: 'Tasting notes', itemLabel: (p) => p.value }),
-        roast: fields.integer({ label: 'Roast level (1 light – 5 dark)', defaultValue: 3, validation: { min: 1, max: 5 } }),
-        use: fields.text({ label: 'Used for', description: 'e.g. Pour over, House espresso' }),
+        roast: fields.integer({ label: 'Intensity (1 light – 5 strong)', defaultValue: 3, validation: { min: 1, max: 5 } }),
+        use: fields.text({ label: 'Used for', description: 'e.g. Classic chai, Masala chai' }),
         onBar: fields.checkbox({ label: 'On bar now', description: 'Untick to hide without deleting.', defaultValue: true }),
         order: fields.integer({ label: 'Sort order', defaultValue: 10 }),
       },

@@ -35,9 +35,6 @@ export type BakeryItem = {
   photo: string | null;
 };
 
-/** Everything the cart needs to know about one orderable item. */
-export type CartItem = { id: string; name: string; price: number; kind: 'drink' | 'bakery' };
-
 export type DayHours = { day: string; closed: boolean; open: string; close: string };
 
 function required<T>(value: T | null, what: string): T {
@@ -100,19 +97,6 @@ export async function loadSite() {
     }));
   const bakeryCategories = [...new Set(bakery.map((b) => b.category))];
 
-  // Ordering is on when the admin says so and there's something to order.
-  const ordering = {
-    enabled: s.ordering.enabled && drinks.length + bakery.length > 0,
-    whatsapp: s.ordering.whatsapp.replace(/[^\d]/g, ''),
-    leadMinutes: s.ordering.leadMinutes ?? 15,
-    note: s.ordering.note,
-    deliveryUrl: s.orderUrl,
-  };
-  const cartItems: CartItem[] = [
-    ...drinks.map((d) => ({ id: `drink:${d.id}`, name: d.name, price: d.price, kind: 'drink' as const })),
-    ...bakery.map((b) => ({ id: `bakery:${b.id}`, name: b.name, price: b.price, kind: 'bakery' as const })),
-  ];
-
   const origins = originEntries
     .filter((e) => e.entry.onBar)
     .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0))
@@ -122,9 +106,9 @@ export async function loadSite() {
 
   let money: Intl.NumberFormat;
   try {
-    money = new Intl.NumberFormat(s.locale || 'en-US', { style: 'currency', currency: s.currency, minimumFractionDigits: 2 });
+    money = new Intl.NumberFormat(s.locale || 'en-US', { style: 'currency', currency: s.currency, minimumFractionDigits: 0, maximumFractionDigits: 0 });
   } catch {
-    money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+    money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
   }
 
   const a = s.address;
@@ -144,8 +128,6 @@ export async function loadSite() {
     origins,
     bakery,
     bakeryCategories,
-    ordering,
-    cartItems,
     hours,
     hoursNote: h.note,
     formatPrice: (n: number) => money.format(n),

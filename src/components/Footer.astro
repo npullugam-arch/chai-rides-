@@ -1,15 +1,45 @@
 ---
-interface Props { name: string; instagram?: string | null; email?: string; showBigName?: boolean }
-const { name, instagram, email, showBigName = true } = Astro.props;
+import type { FooterContent } from '../lib/supabase';
+interface Props { footer: FooterContent }
+const { footer } = Astro.props;
 const year = new Date().getFullYear();
+const digits = footer.whatsapp_number.replace(/\D/g, '');
+const logo = footer.footer_logo_url || 'https://i.postimg.cc/8k0DBjDc/Chai-Rides-Animated-Logo-Grid.gif';
+const socialLinks = footer.quickLinks.filter((link) => link.link_group === 'social');
 ---
-<footer class="wrap">
-  {showBigName && <div class="foot-big" aria-hidden="true">{name}</div>}
-  <div class="foot">
-    <span>© {year} {name}. All rights reserved.</span>
-    <span class="foot-links">
-      {instagram && <a href={instagram} target="_blank" rel="noopener">Instagram</a>}
-      {email && <a href={`mailto:${email}`}>{email}</a>}
-    </span>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <section class="footer-brand" aria-label="Chai Rides">
+      <img class="footer-logo" src={logo} alt={`${footer.brand_name} logo`} width="112" height="112" loading="lazy" decoding="async" />
+      <div><strong>{footer.brand_name}</strong><span>{footer.tagline}</span></div>
+      <p>{footer.footer_intro}</p>
+    </section>
+    <section class="footer-column">
+      <h2>Quick links</h2>
+      <nav aria-label="Footer navigation"><ul>{footer.quickLinks.filter((link) => link.link_group === 'quick').map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul></nav>
+    </section>
+    <section class="footer-column">
+      <h2>Legal & policies</h2>
+      <nav aria-label="Legal policies"><ul>{footer.policies.map((policy) => <li><a href={`/legal/${policy.slug}`}>{policy.title}</a></li>)}</ul></nav>
+    </section>
+    <section class="footer-column footer-contact">
+      <h2>Contact</h2>
+      <ul>
+        <li><a href={`https://wa.me/${digits}`} target="_blank" rel="noopener"><span aria-hidden="true">◉</span> WhatsApp</a></li>
+        <li><a href={`tel:${footer.phone.replace(/\s/g, '')}`}><span aria-hidden="true">◌</span> {footer.phone}</a></li>
+        {footer.footer_email && <li><a href={`mailto:${footer.footer_email}`}><span aria-hidden="true">✉</span> {footer.footer_email}</a></li>}
+        {footer.instagram_url && <li><a href={footer.instagram_url} target="_blank" rel="noopener"><span aria-hidden="true">◎</span> Instagram</a></li>}
+        {socialLinks.map((link) => <li><a href={link.href} target="_blank" rel="noopener">{link.label}</a></li>)}
+      </ul>
+      <address>{footer.footer_location}</address>
+      {footer.business_hours && <p class="footer-hours">{footer.business_hours}</p>}
+    </section>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© {year} Chai Rides. All rights reserved.</span>
+    <a class="developer-credit" href="https://nandakishore.info/" target="_blank" rel="noopener noreferrer" title="Visit Developer Portfolio" aria-label="Developed by Nandakishore — Visit Developer Portfolio">
+      <span>Developed by <strong>Nandakishore</strong></span>
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </a>
   </div>
 </footer>

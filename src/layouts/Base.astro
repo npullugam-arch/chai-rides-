@@ -8,9 +8,10 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  welcomeLoader?: boolean;
 }
 
-const { site, title, description, noindex = false } = Astro.props;
+const { site, title, description, noindex = false, welcomeLoader = false } = Astro.props;
 const { settings: s, themeKey, hours } = site;
 const theme = THEMES[themeKey as ThemeKey];
 
@@ -34,8 +35,8 @@ const jsonLd = {
   image: ogImage,
   telephone: s.phone || undefined,
   email: s.email || undefined,
-  servesCuisine: 'Coffee',
-  priceRange: '$',
+  servesCuisine: 'Indian tea and snacks',
+  priceRange: '₹',
   hasMenu: new URL('/#menu', Astro.site).href,
   address: {
     '@type': 'PostalAddress',
@@ -81,6 +82,7 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontsUrl(theme)} id="theme-fonts" />
+    {welcomeLoader && <link rel="preload" href="/chai-rides-welcome.gif" as="image" type="image/gif" />}
 
     <style is:global set:html={themeCss()}></style>
 
@@ -98,6 +100,10 @@ const jsonLd = {
         }
       } catch (e) {}
     </script>
+
+    {welcomeLoader && <script is:inline>
+      document.documentElement.classList.add('welcome-pending');
+    </script>}
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>

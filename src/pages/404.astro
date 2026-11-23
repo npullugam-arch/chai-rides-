@@ -3,8 +3,9 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { loadSite } from '../lib/content';
+import { loadFooterContent } from '../lib/supabase';
 
-const site = await loadSite();
+const [site, footer] = await Promise.all([loadSite(), loadFooterContent()]);
 const { settings: s } = site;
 ---
 
@@ -13,8 +14,8 @@ const { settings: s } = site;
   <main id="main" class="wrap notfound">
     <span class="eyebrow">404</span>
     <h1>Spilled it.</h1>
-    <p class="lede" style="margin-inline:auto">That page doesn't exist, or it moved. The coffee's still on, though.</p>
+    <p class="lede" style="margin-inline:auto">That page doesn't exist, or it moved. The chai is still brewing, though.</p>
     <a class="btn" href="/">Back to the homepage</a>
   </main>
-  <Footer name={s.name} instagram={s.instagram} email={s.email} showBigName={false} />
+  <Footer footer={footer} />
 </Base>

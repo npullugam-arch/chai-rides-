@@ -1,0 +1,174 @@
+.cms-shell,
+.cms-shell * { min-width: 0; }
+
+.cms-shell { width: 100%; max-width: 100vw; overflow-x: clip; }
+.cms-shell img { max-width: 100%; }
+.cms-shell input,
+.cms-shell select,
+.cms-shell textarea,
+.cms-shell button { max-width: 100%; }
+.cms-shell input[type="checkbox"] { width: auto; }
+.cms-shell .record-grid,
+.cms-shell .media-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); }
+.cms-shell .cms-panel { min-width: 0; overflow-wrap: anywhere; }
+.cms-shell .cms-form > * { min-width: 0; }
+.admin-menu-toggle,
+.admin-nav-close,
+.admin-nav-overlay { display: none; }
+
+@media (max-width: 800px) {
+  .cms-shell .cms-top {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: 64px;
+    padding: 8px 12px 8px 66px;
+    gap: 10px;
+  }
+
+  .cms-shell .cms-brand { min-width: 0; gap: 8px; font-size: .9rem; }
+  .cms-shell .cms-brand img,
+  .cms-shell .cms-brand svg { width: 42px; height: 42px; flex: 0 0 42px; }
+  .cms-shell .cms-top form { margin-left: auto; flex: none; }
+  .cms-shell .cms-top button { min-height: 44px; padding: .7rem .9rem; }
+
+  .admin-menu-toggle {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 10px;
+    left: 12px;
+    z-index: 45;
+    width: 44px;
+    height: 44px;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,.35) !important;
+    border-radius: 11px !important;
+    background: rgba(255,255,255,.08) !important;
+    color: #fff;
+    cursor: pointer;
+  }
+  .admin-menu-toggle span { display:block;font:700 1.55rem/1 Arial,sans-serif;letter-spacing:0;transform:translateY(-1px); }
+  .admin-nav-close svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .admin-menu-toggle:focus-visible,
+  .admin-nav-close:focus-visible { outline: 3px solid #ffad78; outline-offset: 2px; }
+
+  .admin-nav-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    width: 100%;
+    max-width: none !important;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(3,24,17,.58);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    backdrop-filter: blur(3px);
+    transition: opacity .3s ease,visibility .3s ease;
+  }
+
+  .admin-nav-close {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 12px;
+    left: min(calc(86vw - 58px),252px);
+    z-index: 70;
+    width: 42px;
+    height: 42px;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,.3) !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,.1) !important;
+    color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-18px);
+    transition: opacity .25s ease,transform .3s ease,visibility .3s ease;
+  }
+
+  .cms-shell .cms-layout { display: block; width: 100%; max-width: 100%; }
+  .cms-shell .cms-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 11px;
+    background: rgba(255,255,255,.055);
+    color: #f8f4e9;
+    font-size: .95rem;
+    line-height: 1.2;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    transition: background .2s ease,border-color .2s ease,transform .2s ease;
+  }
+
+  .cms-shell .cms-nav a:hover { transform: translateX(3px); background: rgba(255,255,255,.1); color:#fff; }
+  .cms-shell .cms-nav a.active { border-color: #f28a4b; background: #f1742d; color: #fff; box-shadow: 0 8px 22px rgba(100,38,10,.25); }
+  html.admin-nav-open { overflow: hidden; }
+  html.admin-nav-open .cms-shell .cms-nav { transform: translateX(0); visibility: visible; }
+  html.admin-nav-open .admin-nav-overlay { opacity: 1; visibility: visible; pointer-events: auto; }
+  html.admin-nav-open .admin-nav-close { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+  .cms-shell .cms-content { width: 100%; padding: 20px 12px 36px; overflow: visible; }
+  .cms-shell .cms-heading h1,
+  .cms-shell .login-card h1 { font-size: clamp(2rem, 10vw, 3rem); line-height: 1.03; margin-bottom: 1.35rem; }
+  .cms-shell .metrics { grid-template-columns: 1fr; gap: 12px; }
+  .cms-shell .metrics article,
+  .cms-shell .cms-panel { width: 100%; padding: 16px; margin-bottom: 12px; border-radius: 13px; }
+  .cms-shell .metrics strong { font-size: 2.25rem; }
+  .cms-shell .cms-form.grid { grid-template-columns: 1fr; }
+  .cms-shell .cms-form .wide { grid-column: auto; }
+  .cms-shell .filter-row { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .cms-shell .filter-row input,
+  .cms-shell .filter-row select,
+  .cms-shell .cms-form input,
+  .cms-shell .cms-form select,
+  .cms-shell .cms-form textarea { width: 100%; font-size: 16px; }
+  .cms-shell .record-grid,
+  .cms-shell .media-grid { grid-template-columns: 1fr !important; gap: 12px; }
+
+  .cms-shell .table-scroll { overflow: visible; width: 100%; }
+  .cms-shell table { display: block; min-width: 0; width: 100%; }
+  .cms-shell thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .cms-shell tbody { display: grid; gap: 10px; width: 100%; }
+  .cms-shell tr { display: grid; width: 100%; padding: 10px 12px; border: 1px solid #e0e4df; border-radius: 10px; background: #fafbf9; }
+  .cms-shell td {
+    display: grid;
+    grid-template-columns: minmax(78px, .45fr) minmax(0, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 7px 0;
+    border-bottom: 1px solid #e7eae6;
+    overflow-wrap: anywhere;
+  }
+  .cms-shell td:last-child { border-bottom: 0; }
+  .cms-shell td::before { color: #66766d; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .cms-shell td:nth-child(1)::before { content: "Name"; }
+  .cms-shell td:nth-child(2)::before { content: "City"; }
+  .cms-shell td:nth-child(3)::before { content: "Mobile"; }
+  .cms-shell td:nth-child(4)::before { content: "Status"; }
+  .cms-shell td:nth-child(5)::before { content: "Received"; }
+
+  .cms-shell .login-card { width: calc(100% - 24px); margin: 28px auto; padding: 22px 16px; }
+}
+
+@media (max-width: 430px) {
+  .cms-shell .cms-content { padding-inline: 10px; }
+  .cms-shell .cms-brand span { font-size: .82rem; }
+}
+
+@media (max-width: 340px) {
+  .cms-shell .cms-top { padding: 8px 8px 8px 60px; }
+  .admin-menu-toggle { left: 8px; }
+  .cms-shell .cms-brand span { display: none; }
+  .cms-shell .cms-content { padding-inline: 8px; }
+  .cms-shell td { grid-template-columns: 70px minmax(0, 1fr); }
+}
+

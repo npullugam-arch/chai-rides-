@@ -6,23 +6,28 @@ import Ticker from '../components/Ticker.astro';
 import Beans from '../components/Beans.astro';
 import Menu from '../components/Menu.astro';
 import Bakery from '../components/Bakery.astro';
+import BrandedCup from '../components/BrandedCup.astro';
 import Visit from '../components/Visit.astro';
 import Footer from '../components/Footer.astro';
-import Cart from '../components/Cart.astro';
+import WelcomeLoader from '../components/WelcomeLoader.astro';
 import { loadSite } from '../lib/content';
+import { loadFooterContent } from '../lib/supabase';
 
-const site = await loadSite();
-const { settings: s, page, ordering } = site;
+const [site, footer] = await Promise.all([loadSite(), loadFooterContent()]);
+export const prerender = false;
+const { settings: s, page } = site;
 const links = [
-  { href: '#beans', label: 'Beans' },
+  { href: '#beans', label: 'Chai' },
   { href: '#menu', label: 'Menu' },
-  ...(site.bakery.length ? [{ href: '#bakery', label: 'Bakery' }] : []),
+  ...(site.bakery.length ? [{ href: '#bakery', label: 'Snacks' }] : []),
   { href: '#visit', label: 'Visit' },
+  { href: '/franchise', label: 'Franchise' },
 ];
 ---
 
-<Base site={site}>
-  <Header name={s.name} themeKey={site.themeKey} showSwitcher={s.showThemeSwitcher} showCart={ordering.enabled} links={links} />
+<Base site={site} welcomeLoader>
+  <WelcomeLoader />
+  <Header name={s.name} themeKey={site.themeKey} showSwitcher={s.showThemeSwitcher} links={links} />
 
   <canvas id="stage" aria-hidden="true"></canvas>
 
@@ -37,16 +42,15 @@ const links = [
       drinks={site.drinks}
       categories={site.categories}
       startDrink={site.startDrink}
-      ordering={ordering.enabled}
       formatPrice={site.formatPrice}
     />
+    <BrandedCup />
     <Bakery
       eyebrow={page.bakery.eyebrow}
       title={page.bakery.title}
       text={page.bakery.text}
       items={site.bakery}
       categories={site.bakeryCategories}
-      ordering={ordering.enabled}
       formatPrice={site.formatPrice}
     />
     <Visit
@@ -61,25 +65,9 @@ const links = [
     />
   </main>
 
-  <Footer name={s.name} instagram={s.instagram} email={s.email} />
-
-  {ordering.enabled && (
-    <Cart
-      cafeName={s.name}
-      items={site.cartItems}
-      whatsapp={ordering.whatsapp}
-      leadMinutes={ordering.leadMinutes}
-      note={ordering.note}
-      deliveryUrl={ordering.deliveryUrl}
-      currency={s.currency}
-      locale={s.locale}
-      timeZone={s.timeZone}
-      hours={site.hours}
-    />
-  )}
+  <Footer footer={footer} />
 
   <script>
     import '../scripts/site';
-    import '../scripts/cart';
   </script>
 </Base>

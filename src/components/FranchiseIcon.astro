@@ -1,0 +1,14 @@
+---
+interface Props { type: string }
+const { type } = Astro.props;
+---
+<span class="fi" aria-hidden="true">
+  {type === 'branding' ? <svg viewBox="0 0 24 24"><path d="M4 5h16v10H4zM8 19h8M12 15v4" /></svg>
+  : type === 'kitchen' ? <svg viewBox="0 0 24 24"><path d="M7 4v7a5 5 0 0 0 10 0V4M5 20h14M9 8h6" /></svg>
+  : type === 'furniture' ? <svg viewBox="0 0 24 24"><path d="M5 12h14v5H5zM7 17v3M17 17v3M7 12V7h10v5" /></svg>
+  : type === 'raw' ? <svg viewBox="0 0 24 24"><path d="M12 21c5-3 7-8 6-15-7-1-12 3-13 10 2 2 4 4 7 5ZM7 17c3-3 6-5 10-7" /></svg>
+  : type === 'training' ? <svg viewBox="0 0 24 24"><path d="m3 8 9-4 9 4-9 4zM6 10v5c3 3 9 3 12 0v-5M21 9v6" /></svg>
+  : type === 'marketing' ? <svg viewBox="0 0 24 24"><path d="M4 14V9l12-4v13L4 14Zm0 0 2 5h4l-2-4M18 8c2 1 2 6 0 7" /></svg>
+  : <svg viewBox="0 0 24 24"><path d="M12 3 4 7v10l8 4 8-4V7zM4 7l8 4 8-4M12 11v10" /></svg>}
+</span>
+<style>.fi{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:color-mix(in srgb,var(--orange,#e76f2e) 12%,white);color:var(--orange,#e76f2e);flex:none}.fi svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}</style>

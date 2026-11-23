@@ -1,0 +1,7 @@
+import { loadEnv } from 'vite';
+const env=loadEnv('development',process.cwd(),'');const base=process.env.TEST_BASE_URL||'http://127.0.0.1:4321';
+const login=await fetch(`${base}/api/admin/login`,{method:'POST',redirect:'manual',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({identity:env.ADMIN_USERNAME,password:env.ADMIN_PASSWORD})});
+if(login.status!==303)throw new Error(`Admin login test failed: ${login.status}`);const cookie=login.headers.get('set-cookie')?.split(';')[0];if(!cookie)throw new Error('Admin session cookie missing.');
+const create=await fetch(`${base}/api/admin/benefits`,{method:'POST',headers:{cookie,'content-type':'application/json'},body:JSON.stringify({package_id:null,benefit_type:'general',title:'Automated CRUD verification',description:'Temporary test record',is_active:false,sort_order:9999})});if(!create.ok)throw new Error(`Create failed: ${await create.text()}`);const [record]=await create.json();
+const update=await fetch(`${base}/api/admin/benefits`,{method:'PATCH',headers:{cookie,'content-type':'application/json'},body:JSON.stringify({id:record.id,description:'Updated temporary test record'})});if(!update.ok)throw new Error(`Update failed: ${await update.text()}`);
+const remove=await fetch(`${base}/api/admin/benefits`,{method:'DELETE',headers:{cookie,'content-type':'application/json'},body:JSON.stringify({id:record.id})});if(remove.status!==204)throw new Error(`Delete failed: ${remove.status}`);console.log('Admin login and benefit create/update/delete verification passed.');

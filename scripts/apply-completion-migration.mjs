@@ -1,0 +1,4 @@
+import { loadEnv } from 'vite'; import postgres from 'postgres'; import { readFile } from 'node:fs/promises';
+const env=loadEnv('development',process.cwd(),''); if(!env.SUPABASE_DB_PASSWORD&&!env.DATABASE_URL)throw new Error('Supabase database password is missing.');
+const c=env.DATABASE_URL||{host:env.SUPABASE_DB_HOST||'aws-0-ap-south-1.pooler.supabase.com',port:Number(env.SUPABASE_DB_PORT||5432),database:env.SUPABASE_DB_NAME||'postgres',username:env.SUPABASE_DB_USER||'postgres.ujgxirvujyccdlpqricr',password:env.SUPABASE_DB_PASSWORD,ssl:'require'};const sql=typeof c==='string'?postgres(c,{ssl:'require',max:1}):postgres({...c,max:1});
+try{await sql.unsafe(await readFile(new URL('../supabase/migrations/202611220002_completion_audit.sql',import.meta.url),'utf8'));const [r]=await sql`select count(*)::int count from public.franchise_benefits`;console.log(`Completion migration applied. Benefit records: ${r.count}.`)}finally{await sql.end()}

@@ -1,0 +1,20 @@
+---
+import SimpleBase from '../../layouts/SimpleBase.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { loadFooterContent } from '../../lib/supabase';
+
+export const prerender = false;
+const footer = await loadFooterContent();
+const policy = footer.policies.find((item) => item.slug === Astro.params.slug);
+if (!policy) return Astro.redirect('/404');
+---
+<SimpleBase title={`${policy.title} · Chai Rides`} description={policy.title}>
+  <Header name={footer.brand_name} themeKey="espresso" showSwitcher={false} showHomeBack={true} />
+  <main id="main" class="wrap policy-page">
+    <span class="eyebrow">Chai Rides policy</span>
+    <h1>{policy.title}</h1>
+    <div class="policy-copy">{policy.content.split('\n').map((line) => line ? <p>{line}</p> : <br />)}</div>
+  </main>
+  <Footer footer={footer} />
+</SimpleBase>
